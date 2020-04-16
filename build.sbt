@@ -1,9 +1,3 @@
-//codegen
-val a = Project("a", file("a"))
-  .settings(
-    crossScalaVersions := Seq("2.12.10"),
-  )
-
 //runtime
 val b = Project("b", file("b"))
   .settings(
@@ -17,7 +11,6 @@ val b = Project("b", file("b"))
 //sbt-akka-grpc
 val c = Project("c", file("c"))
   .enablePlugins(SbtPlugin)
-  .dependsOn(a)
   .settings(
     crossScalaVersions := Seq("2.12.10"),
     libraryDependencies += 
@@ -26,7 +19,7 @@ val c = Project("c", file("c"))
   )
 
 val root = Project("reproduce-5497", file("."))
-  .aggregate(a, b, c)
+  .aggregate(b, c)
   .settings(
     crossScalaVersions := Nil
   )
